@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import {
   Select,
@@ -10,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Download, Upload, RotateCcw } from "lucide-react";
+import { Download, Upload, RotateCcw, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { GlitchProcessor } from "@/lib/glitchProcessor";
 
@@ -146,98 +145,99 @@ export default function Home() {
 
   if (step === "landing") {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center px-4">
-        <div className="max-w-2xl w-full">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-              ⚡ Data-Blocker
-            </h1>
-            <p className="text-xl text-gray-300 mb-2">
-              Transform your images with glitch art effects
-            </p>
-            <p className="text-gray-400">
-              Create unique, isolated glitch effects with real-time editing. Export as standalone art or use as assets for your projects.
-            </p>
-          </div>
+      <div className="min-h-screen wear-texture" style={{background: 'linear-gradient(135deg, rgba(5, 15, 30, 0.98) 0%, rgba(10, 25, 40, 0.95) 100%)'}}>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-cyan-900/10 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-blue-900/10 blur-3xl"></div>
+        </div>
 
-          <div
-            className="border-2 border-dashed border-cyan-500/50 rounded-lg p-12 mb-12 text-center cursor-pointer hover:border-cyan-400 transition-colors"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={handleDragDrop}
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Upload className="w-16 h-16 text-cyan-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-semibold text-white mb-2">
-              Drag and drop your image
-            </h2>
-            <p className="text-gray-400">or click to browse</p>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files?.[0]) {
-                  handleImageUpload(e.target.files[0]);
-                }
-              }}
-            />
-          </div>
+        <div className="relative flex flex-col items-center justify-center px-4 py-16 min-h-screen">
+          <div className="max-w-4xl w-full">
+            <div className="text-center mb-16">
+              <div className="mb-6 inline-block">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-full"></div>
+                  <Zap className="w-16 h-16 relative text-cyan-400 animate-pulse" />
+                </div>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border border-cyan-500/30 rounded-lg p-6 text-center">
-              <div className="text-3xl mb-3">🌈</div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Chromatic Aberration
-              </h3>
-              <p className="text-sm text-gray-400">
-                Multi-channel color separation and displacement
+              <h1 className="text-6xl md:text-7xl font-black mb-4 mecha-title tracking-tighter">
+                DATA·BLOCKER
+              </h1>
+
+              <div className="h-1 w-32 mx-auto mb-6 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+
+              <p className="text-lg md:text-xl text-cyan-100 mb-3 font-light tracking-wide">
+                Algorithmic Glitch Art Generator
+              </p>
+              <p className="text-sm md:text-base text-cyan-300/80 font-light max-w-2xl mx-auto leading-relaxed">
+                Five genuine mathematical algorithms. Real-time parameter control. Isolated effect export.
+                Transform images into state-of-the-art glitch art assets.
               </p>
             </div>
-            <div className="border border-cyan-500/30 rounded-lg p-6 text-center">
-              <div className="text-3xl mb-3">🔮</div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Fractal Displacement
-              </h3>
-              <p className="text-sm text-gray-400">
-                Mandelbrot-based spatial distortion
-              </p>
+
+            <div
+              className="mecha-panel corner-accent relative rounded-sm mb-12 p-8 cursor-pointer group transition-all duration-300 hover:shadow-2xl"
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDragDrop}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-sm"></div>
+
+              <div className="relative text-center">
+                <div className="mb-6 inline-block relative">
+                  <div className="absolute inset-0 text-cyan-400/20 animate-pulse text-5xl">⬇</div>
+                  <Upload className="w-20 h-20 text-cyan-400 relative group-hover:scale-110 transition-transform" />
+                </div>
+
+                <h2 className="text-2xl md:text-3xl font-bold text-cyan-200 mb-2 glow-accent">
+                  Initialize Processing
+                </h2>
+                <p className="text-cyan-400/80 text-sm md:text-base">
+                  Drag an image or click to select from disk
+                </p>
+              </div>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  if (e.target.files?.[0]) {
+                    handleImageUpload(e.target.files[0]);
+                  }
+                }}
+              />
             </div>
-            <div className="border border-cyan-500/30 rounded-lg p-6 text-center">
-              <div className="text-3xl mb-3">🧬</div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Cellular Automata
-              </h3>
-              <p className="text-sm text-gray-400">
-                Conway's Game of Life evolution
-              </p>
-            </div>
-            <div className="border border-cyan-500/30 rounded-lg p-6 text-center">
-              <div className="text-3xl mb-3">〰️</div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Wave Distortion
-              </h3>
-              <p className="text-sm text-gray-400">
-                Multi-frequency harmonic warping
-              </p>
-            </div>
-            <div className="border border-cyan-500/30 rounded-lg p-6 text-center">
-              <div className="text-3xl mb-3">☁️</div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Perlin Noise
-              </h3>
-              <p className="text-sm text-gray-400">
-                Organic procedural glitch generation
-              </p>
-            </div>
-            <div className="border border-cyan-500/30 rounded-lg p-6 text-center">
-              <div className="text-3xl mb-3">✨</div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                5 Presets
-              </h3>
-              <p className="text-sm text-gray-400">
-                Curated algorithmic combinations
-              </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+              {[
+                { title: "Chromatic Rift", desc: "Multi-channel RGB displacement", icon: "🌈" },
+                { title: "Mandelbrot Decay", desc: "Fractal set calculations", icon: "🔮" },
+                { title: "Cellular Bloom", desc: "Conway's Game of Life", icon: "🧬" },
+                { title: "Harmonic Distortion", desc: "Multi-frequency waves", icon: "〰️" },
+                { title: "Perlin Corruption", desc: "Procedural noise warping", icon: "☁️" },
+                { title: "5 Presets", desc: "Curated combinations", icon: "⚙️" },
+              ].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="mecha-panel relative rounded-sm p-5 group hover:border-cyan-400/50 transition-all duration-300"
+                >
+                  <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-sm"></div>
+                  <div className="relative">
+                    <div className="text-3xl mb-3 group-hover:scale-125 transition-transform inline-block">
+                      {item.icon}
+                    </div>
+                    <h3 className="text-sm font-bold text-cyan-200 mb-1 uppercase tracking-wider">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-cyan-400/70 font-light">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -247,141 +247,158 @@ export default function Home() {
 
   if (step === "editor" && sourceImage) {
     return (
-      <div className="min-h-screen bg-black p-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-white">Effect Editor</h1>
-            <div className="flex gap-3">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setStep("landing");
-                  setSourceImage(null);
-                }}
-              >
-                ← Back
-              </Button>
-              <Button
-                className="bg-cyan-500 hover:bg-cyan-600"
-                onClick={() => setStep("export")}
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Export
-              </Button>
-            </div>
-          </div>
+      <div className="min-h-screen wear-texture" style={{background: 'linear-gradient(135deg, rgba(5, 15, 30, 0.98) 0%, rgba(10, 25, 40, 0.95) 100%)'}}>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-cyan-900/10 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-blue-900/10 blur-3xl"></div>
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2">
-              <div className="bg-gray-900 rounded-lg p-6 border border-cyan-500/20">
-                <canvas
-                  ref={canvasRef}
-                  className="w-full rounded-lg border border-cyan-500/30"
-                />
+        <div className="relative p-4 md:p-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex justify-between items-center mb-8">
+              <h1 className="text-3xl md:text-4xl font-bold mecha-title">
+                PROCESSING ENGINE
+              </h1>
+              <div className="flex gap-3">
+                <Button
+                  className="mecha-button rounded-sm px-4"
+                  onClick={() => {
+                    setStep("landing");
+                    setSourceImage(null);
+                  }}
+                >
+                  ← ABORT
+                </Button>
+                <Button
+                  className="mecha-button rounded-sm px-4 bg-gradient-to-br from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 border-green-400/50"
+                  onClick={() => setStep("export")}
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  EXPORT
+                </Button>
               </div>
             </div>
 
-            <div className="space-y-6">
-              <div className="bg-gray-900 rounded-lg p-6 border border-cyan-500/20">
-                <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                  ✨ Presets
-                </h2>
-                <div className="space-y-2">
-                  {Object.keys(PRESETS).map((preset) => (
-                    <Button
-                      key={preset}
-                      variant="outline"
-                      className="w-full justify-start text-left text-sm h-auto py-2 border-cyan-500/30 hover:bg-cyan-500/10"
-                      onClick={() => applyPreset(preset)}
-                    >
-                      {preset}
-                    </Button>
-                  ))}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2">
+                <div className="mecha-panel rounded-sm p-6 relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity blur"></div>
+                  <canvas
+                    ref={canvasRef}
+                    className="w-full rounded-sm border border-cyan-400/30 mecha-glow relative z-10"
+                    style={{boxShadow: '0 0 20px rgba(102, 204, 255, 0.1), inset 0 0 10px rgba(102, 204, 255, 0.05)'}}
+                  />
                 </div>
               </div>
 
-              <div className="bg-gray-900 rounded-lg p-6 border border-cyan-500/20">
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm text-gray-300">Effect Type</label>
-                    <Select
-                      value={params.effectType}
-                      onValueChange={(v) =>
-                        setParams({
-                          ...params,
-                          effectType: v as any,
-                        })
-                      }
+              <div className="space-y-4">
+                <div className="mecha-panel rounded-sm p-5 relative">
+                  <h3 className="text-sm font-bold text-cyan-300 mb-4 uppercase tracking-widest glow-accent">
+                    ⚙️ Algorithmic Presets
+                  </h3>
+                  <div className="space-y-2">
+                    {Object.keys(PRESETS).map((preset) => (
+                      <Button
+                        key={preset}
+                        className="mecha-button rounded-sm w-full justify-start text-left text-xs h-auto py-2.5 px-3"
+                        onClick={() => applyPreset(preset)}
+                      >
+                        {preset}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mecha-panel rounded-sm p-5 relative">
+                  <h3 className="text-sm font-bold text-cyan-300 mb-4 uppercase tracking-widest glow-accent">
+                    🎯 Parameters
+                  </h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-xs text-cyan-300/80 uppercase tracking-wider block mb-2">
+                        Effect Type
+                      </label>
+                      <Select
+                        value={params.effectType}
+                        onValueChange={(v) =>
+                          setParams({
+                            ...params,
+                            effectType: v as any,
+                          })
+                        }
+                      >
+                        <SelectTrigger className="mecha-input rounded-sm text-xs py-2 h-auto bg-gradient-to-br from-slate-900 to-slate-950 border-cyan-400/30">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="mecha-input rounded-sm bg-gradient-to-br from-slate-900 to-slate-950 border-cyan-400/30">
+                          <SelectItem value="chromatic">Chromatic Rift</SelectItem>
+                          <SelectItem value="fractal">Mandelbrot Decay</SelectItem>
+                          <SelectItem value="cellular">Cellular Bloom</SelectItem>
+                          <SelectItem value="wave">Harmonic Distortion</SelectItem>
+                          <SelectItem value="noise">Perlin Corruption</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-cyan-300/80 uppercase tracking-wider flex justify-between mb-2">
+                        <span>Intensity</span>
+                        <span className="text-cyan-400 font-bold">{params.intensity}%</span>
+                      </label>
+                      <Slider
+                        value={[params.intensity]}
+                        onValueChange={(v) =>
+                          setParams({ ...params, intensity: v[0] })
+                        }
+                        min={0}
+                        max={100}
+                        step={1}
+                        className="mt-2"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-cyan-300/80 uppercase tracking-wider flex justify-between mb-2">
+                        <span>Scale</span>
+                        <span className="text-cyan-400 font-bold">{params.scale}</span>
+                      </label>
+                      <Slider
+                        value={[params.scale]}
+                        onValueChange={(v) =>
+                          setParams({ ...params, scale: v[0] })
+                        }
+                        min={10}
+                        max={200}
+                        step={5}
+                        className="mt-2"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-cyan-300/80 uppercase tracking-wider flex justify-between mb-2">
+                        <span>Iterations</span>
+                        <span className="text-cyan-400 font-bold">{params.iterations}</span>
+                      </label>
+                      <Slider
+                        value={[params.iterations]}
+                        onValueChange={(v) =>
+                          setParams({ ...params, iterations: v[0] })
+                        }
+                        min={1}
+                        max={64}
+                        step={1}
+                        className="mt-2"
+                      />
+                    </div>
+
+                    <Button
+                      className="mecha-button rounded-sm w-full mt-2 text-xs"
+                      onClick={() => setParams(DEFAULT_PARAMS)}
                     >
-                      <SelectTrigger className="mt-2 bg-gray-800 border-cyan-500/30">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-800 border-cyan-500/30">
-                        <SelectItem value="chromatic">Chromatic Aberration</SelectItem>
-                        <SelectItem value="fractal">Fractal Displacement</SelectItem>
-                        <SelectItem value="cellular">Cellular Automata</SelectItem>
-                        <SelectItem value="wave">Wave Distortion</SelectItem>
-                        <SelectItem value="noise">Perlin Noise</SelectItem>
-                      </SelectContent>
-                    </Select>
+                      <RotateCcw className="w-3 h-3 mr-2" />
+                      RESET
+                    </Button>
                   </div>
-
-                  <div>
-                    <label className="text-sm text-gray-300">
-                      Intensity: {params.intensity}%
-                    </label>
-                    <Slider
-                      value={[params.intensity]}
-                      onValueChange={(v) =>
-                        setParams({ ...params, intensity: v[0] })
-                      }
-                      min={0}
-                      max={100}
-                      step={1}
-                      className="mt-2"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-sm text-gray-300">
-                      Scale: {params.scale}
-                    </label>
-                    <Slider
-                      value={[params.scale]}
-                      onValueChange={(v) =>
-                        setParams({ ...params, scale: v[0] })
-                      }
-                      min={10}
-                      max={200}
-                      step={5}
-                      className="mt-2"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-sm text-gray-300">
-                      Iterations: {params.iterations}
-                    </label>
-                    <Slider
-                      value={[params.iterations]}
-                      onValueChange={(v) =>
-                        setParams({ ...params, iterations: v[0] })
-                      }
-                      min={1}
-                      max={64}
-                      step={1}
-                      className="mt-2"
-                    />
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    className="w-full border-cyan-500/30 hover:bg-cyan-500/10"
-                    onClick={() => setParams(DEFAULT_PARAMS)}
-                  >
-                    <RotateCcw className="w-4 h-4 mr-2" />
-                    Reset
-                  </Button>
                 </div>
               </div>
             </div>
@@ -393,43 +410,51 @@ export default function Home() {
 
   if (step === "export") {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-6">
+      <div className="min-h-screen wear-texture flex items-center justify-center p-4" style={{background: 'linear-gradient(135deg, rgba(5, 15, 30, 0.98) 0%, rgba(10, 25, 40, 0.95) 100%)'}}>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-cyan-900/10 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-blue-900/10 blur-3xl"></div>
+        </div>
+
         <Dialog open={true} onOpenChange={() => setStep("editor")}>
-          <DialogContent className="bg-gray-900 border-cyan-500/30">
-            <DialogHeader>
-              <DialogTitle className="text-white">
-                Export Your Glitch Art
+          <DialogContent className="mecha-panel rounded-sm border-cyan-400/40 shadow-2xl max-w-md p-0 overflow-hidden">
+            <DialogHeader className="mecha-panel rounded-none border-0 border-b border-cyan-400/20 p-6">
+              <DialogTitle className="mecha-title text-xl font-bold uppercase tracking-wider">
+                ⬇️ Data Export
               </DialogTitle>
             </DialogHeader>
-            <div className="space-y-4">
+
+            <div className="p-6 space-y-5">
               <div>
-                <label className="text-sm text-gray-300 block mb-2">
-                  Format
+                <label className="text-xs font-bold text-cyan-300 uppercase tracking-wider block mb-3">
+                  Output Format
                 </label>
                 <Select value={exportFormat} onValueChange={(v) => setExportFormat(v as any)}>
-                  <SelectTrigger className="bg-gray-800 border-cyan-500/30">
+                  <SelectTrigger className="mecha-input rounded-sm text-sm py-2.5 h-auto bg-gradient-to-br from-slate-900 to-slate-950 border-cyan-400/30">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-800 border-cyan-500/30">
-                    <SelectItem value="png">PNG (Lossless)</SelectItem>
-                    <SelectItem value="jpeg">JPEG (Compressed)</SelectItem>
+                  <SelectContent className="mecha-input rounded-sm bg-gradient-to-br from-slate-900 to-slate-950 border-cyan-400/30">
+                    <SelectItem value="png">PNG • Lossless</SelectItem>
+                    <SelectItem value="jpeg">JPEG • Compressed</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <Button
-                className="w-full bg-cyan-500 hover:bg-cyan-600"
-                onClick={handleExport}
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Download
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full border-cyan-500/30"
-                onClick={() => setStep("editor")}
-              >
-                Close
-              </Button>
+
+              <div className="space-y-3">
+                <Button
+                  className="mecha-button rounded-sm w-full py-3 text-sm font-bold uppercase tracking-wider bg-gradient-to-br from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 border-green-400/50"
+                  onClick={handleExport}
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Download
+                </Button>
+                <Button
+                  className="mecha-button rounded-sm w-full py-3 text-sm font-bold uppercase tracking-wider"
+                  onClick={() => setStep("editor")}
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
           </DialogContent>
         </Dialog>
